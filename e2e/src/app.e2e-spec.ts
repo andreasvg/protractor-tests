@@ -13,53 +13,62 @@ describe('workspace-project App', () => {
     expect(page.getTitleText()).toEqual('protractor-tests app is running!');
   });
 
-  it(`should display the expected first product`, async() => {
-    // Arrange:
-    // Act:
-    page.navigateTo();
+  describe(`product list display`, () => {
+    it(`should display the expected first product`, async() => {
+      // Arrange:
+      // Act:
+      page.navigateTo();
 
-    // Assert:
-    const firstProduct = await page.getFirstProductDescription();
-    expect(firstProduct).toBeTruthy();
-    expect(firstProduct).toBe('Gibson Les Paul Standard');
+      // Assert:
+      const firstProduct = await page.getFirstProductDescription();
+      expect(firstProduct).toBeTruthy();
+      expect(firstProduct).toBe('Gibson Les Paul Standard');
+    });
+
+    it(`should display a number of products`, async () => {
+      // Arrange:
+      // Act:
+      page.navigateTo();
+
+      // Assert:
+      const products = page.getProductListItems();
+      expect(products).toBeTruthy();
+
+      const productCount = await products.count();
+      expect(productCount).toBeGreaterThan(1);
+    });
   });
 
-  it(`should display a number of products`, async () => {
-    // Arrange:
-    // Act:
-    page.navigateTo();
+  describe(`product selection`, () => {
+    it(`should not display any product if none is selected yet`, () => {
+      // Arrange:
+      // Act:
+      page.navigateTo();
 
-    // Assert:
-    const products = page.getProductListItems();
-    expect(products).toBeTruthy();
+      // Assert:
+      const selectedProductDescription = page.getSelectedProduct();
+      expect(selectedProductDescription.isPresent()).toBeFalsy();
+    });
 
-    const productCount = await products.count();
-    expect(productCount).toBeGreaterThan(1);
+    it(`clicking a product should select that product`, async () => {
+      // Arrange:
+      page.navigateTo();
+      const firstProduct =  page.getFirstProduct();
+      const expectedString = await firstProduct.getText();
+
+      // Act:
+      firstProduct.click();
+
+      // Assert:
+      const selectedProductDescription = await page.getSelectedProductDescription();
+      expect(selectedProductDescription).toBe(expectedString);
+    });
   });
 
-  it(`should not display any product if none is selected yet`, () => {
-    // Arrange:
-    // Act:
-    page.navigateTo();
-
-    // Assert:
-    const selectedProductDescription = page.getSelectedProduct();
-    expect(selectedProductDescription.isPresent()).toBeFalsy();
-  });
-
-  it(`clicking a product should select that product`, async () => {
-    // Arrange:
-    page.navigateTo();
-    const firstProduct =  page.getFirstProduct();
-    const expectedString = await firstProduct.getText();
-
-    // Act:
-    firstProduct.click();
-
-    // Assert:
-    const selectedProductDescription = await page.getSelectedProductDescription();
-    expect(selectedProductDescription).toBe(expectedString);
-  });
+  /*
+  - test navigating to a product page (check product details in that page)
+  - test adding a new product
+  */
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

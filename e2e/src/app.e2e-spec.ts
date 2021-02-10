@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('protractor-tests app is running!');
+    expect(page.getTitleText()).toEqual('Protractor Tests');
   });
 
   describe(`product list display`, () => {
@@ -68,6 +68,7 @@ describe('workspace-project App', () => {
   /*
   - test navigating to a product page (check product details in that page)
   - test adding a new product
+  - test basic page navigation (add a nav bar)
   */
 
   afterEach(async () => {

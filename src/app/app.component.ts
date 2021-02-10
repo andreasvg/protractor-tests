@@ -8,6 +8,6 @@ import { IProduct } from './models/IProduct';
 })
 export class AppComponent {
   public selectedProduct: IProduct;
-  title = 'protractor-tests';
+  title = 'Protractor Tests';
 
 }

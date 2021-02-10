@@ -1,0 +1,3 @@
+<ul *ngIf="products$ | async as products" id="product-list">
+  <li *ngFor="let product of products">{{ product.manufacturer }} {{ product.name }}</li>
+</ul>

@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, ElementArrayFinder, logging } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -19,11 +19,46 @@ describe('workspace-project App', () => {
     page.navigateTo();
 
     // Assert:
-    //await browser.wait(browser.ExpectedConditions.presenceOf(await page.getProductList()));
-
-    const firstProduct = await page.getFirstProduct();
+    const firstProduct = await page.getFirstProductDescription();
     expect(firstProduct).toBeTruthy();
     expect(firstProduct).toBe('Gibson Les Paul Standard');
+  });
+
+  it(`should display a number of products`, async () => {
+    // Arrange:
+    // Act:
+    page.navigateTo();
+
+    // Assert:
+    const products = page.getProductListItems();
+    expect(products).toBeTruthy();
+
+    const productCount = await products.count();
+    expect(productCount).toBeGreaterThan(1);
+  });
+
+  it(`should not display any product if none is selected yet`, () => {
+    // Arrange:
+    // Act:
+    page.navigateTo();
+
+    // Assert:
+    const selectedProductDescription = page.getSelectedProduct();
+    expect(selectedProductDescription.isPresent()).toBeFalsy();
+  });
+
+  it(`clicking a product should select that product`, async () => {
+    // Arrange:
+    page.navigateTo();
+    const firstProduct =  page.getFirstProduct();
+    const expectedString = await firstProduct.getText();
+
+    // Act:
+    firstProduct.click();
+
+    // Assert:
+    const selectedProductDescription = await page.getSelectedProductDescription();
+    expect(selectedProductDescription).toBe(expectedString);
   });
 
   afterEach(async () => {

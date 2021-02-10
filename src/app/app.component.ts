@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IProduct } from './models/IProduct';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public selectedProduct: IProduct;
   title = 'protractor-tests';
+
 }

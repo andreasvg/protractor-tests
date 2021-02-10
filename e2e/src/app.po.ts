@@ -9,11 +9,23 @@ export class AppPage {
     return element(by.css('app-root .content span')).getText() as Promise<string>;
   }
 
-  getProductList(): ElementArrayFinder {
-    return element.all(by.css('#product-list'));
+  getProductListItems(): ElementArrayFinder {
+    return element.all(by.css('#product-list li')) as ElementArrayFinder;
   }
 
-  getFirstProduct(): Promise<string> {
-    return element.all(by.css('#product-list li')).first().getText() as Promise<string>;
+  getFirstProduct() {
+    return element.all(by.css('#product-list li')).first();
+  }
+
+  getFirstProductDescription(): Promise<string> {
+    return this.getFirstProduct().getText() as Promise<string>;
+  }
+
+  getSelectedProduct() {
+    return element(by.id('selected-product'));
+  }
+
+  getSelectedProductDescription(): Promise<string> {
+    return this.getSelectedProduct().getText() as Promise<string>;
   }
 }

@@ -13,16 +13,20 @@ export class AppPage {
     return element.all(by.css('#product-list li')) as ElementArrayFinder;
   }
 
-  getFirstProduct() {
+  private getFirstProductElement() {
     return element.all(by.css('#product-list li')).first();
   }
 
+  getFirstProductLinkElement() {
+    return this.getFirstProductElement().element(by.css('span'));
+  }
+
   getFirstProductButton() {
-    return this.getFirstProduct().element(by.css('button'));
+    return this.getFirstProductElement().element(by.css('button'));
   }
 
   getFirstProductDescription(): Promise<string> {
-    return this.getFirstProduct().element(by.css('span')).getText() as Promise<string>;
+    return this.getFirstProductLinkElement().getText() as Promise<string>;
   }
 
   getSelectedProduct() {
@@ -32,4 +36,10 @@ export class AppPage {
   getSelectedProductDescription(): Promise<string> {
     return this.getSelectedProduct().getText() as Promise<string>;
   }
+
+  getMainHeadingText(): Promise<string> {
+    return element(by.id('main-heading')).getText() as Promise<string>;
+  }
+
+
 }

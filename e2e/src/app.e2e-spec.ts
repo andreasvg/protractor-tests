@@ -8,6 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
+  beforeEach(async() => {
+    await browser.waitForAngularEnabled(true);
+  });
+
   it('should display welcome message', () => {
     page.navigateTo();
     expect(page.getTitleText()).toEqual('Protractor Tests');
@@ -63,10 +67,24 @@ describe('workspace-project App', () => {
       const selectedProductDescription = await page.getSelectedProductDescription();
       expect(selectedProductDescription).toBe(expectedString);
     });
+
+    it(`clicking a product should navigate to the product page`, async () => {
+      // Arrange:
+      page.navigateTo();
+      const firstProduct = page.getFirstProductLinkElement();
+      const expectedString = await page.getFirstProductDescription();
+
+      // Act:
+      firstProduct.click();
+      browser.sleep(1000);
+
+      // Assert:
+      const heading = page.getMainHeadingText();
+      expect(heading).toEqual(expectedString);
+    });
   });
 
   /*
-  - test navigating to a product page (check product details in that page)
   - test adding a new product
   - test basic page navigation (add a nav bar)
   */

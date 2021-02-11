@@ -17,4 +17,9 @@ export class ApiService {
     return this.http.get<IProduct[]>(url);
   }
 
+  public getProduct(productId: number): Observable<IProduct> {
+    const url = `${this.apiEndpoint}/products/${productId}`;
+    return this.http.get<IProduct>(url);
+  }
+
 }

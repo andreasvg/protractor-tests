@@ -3,5 +3,8 @@
 </div>
 
 <ul *ngIf="products$ | async as products" id="product-list">
-  <li *ngFor="let product of products" (click)="onClick(product)">{{ product.manufacturer }} {{ product.name }}</li>
+  <li *ngFor="let product of products">
+    <button (click)="onClick(product)">Select</button>
+    <span>{{ product.manufacturer }} {{ product.name }}</span>
+  </li>
 </ul>

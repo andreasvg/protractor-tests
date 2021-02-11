@@ -50,14 +50,14 @@ describe('workspace-project App', () => {
       expect(selectedProductDescription.isPresent()).toBeFalsy();
     });
 
-    it(`clicking a product should select that product`, async () => {
+    it(`clicking a product button should select that product`, async () => {
       // Arrange:
       page.navigateTo();
-      const firstProduct =  page.getFirstProduct();
-      const expectedString = await firstProduct.getText();
+      const firstProductButton =  page.getFirstProductButton();
+      const expectedString = await page.getFirstProductDescription();
 
       // Act:
-      firstProduct.click();
+      firstProductButton.click();
 
       // Assert:
       const selectedProductDescription = await page.getSelectedProductDescription();

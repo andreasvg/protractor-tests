@@ -17,8 +17,12 @@ export class AppPage {
     return element.all(by.css('#product-list li')).first();
   }
 
+  getFirstProductButton() {
+    return this.getFirstProduct().element(by.css('button'));
+  }
+
   getFirstProductDescription(): Promise<string> {
-    return this.getFirstProduct().getText() as Promise<string>;
+    return this.getFirstProduct().element(by.css('span')).getText() as Promise<string>;
   }
 
   getSelectedProduct() {

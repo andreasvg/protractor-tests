@@ -8,7 +8,7 @@ import { IProduct } from '../models/IProduct';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  public products$ = this.apiService.getProducts();
+  public products$ = this.apiService.allProducts$;
   public selectedProduct: IProduct;
 
   constructor(private apiService: ApiService) { }

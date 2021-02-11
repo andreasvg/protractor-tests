@@ -1,3 +1,5 @@
+<button [routerLink]="['/', 'products', 'add']" id="btn-add-product">Add</button>
+
 <div *ngIf="selectedProduct" id="selected-product">
   {{ selectedProduct.manufacturer}} {{ selectedProduct.name }}
 </div>
